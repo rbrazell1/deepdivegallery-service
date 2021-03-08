@@ -5,6 +5,9 @@ target/
 !**/src/test/**/target/
 
 derby.log
+/deepdivegallery_db
+ddl.sql
+
 
 ### STS ###
 .apt_generated
