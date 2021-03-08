@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Mon Mar 08 14:40:19 MST 2021:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0178-13c8-a274-00000ad0e2a0 
+Mon Mar 08 16:08:49 MST 2021:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0178-1419-a8fb-00000aa354c0 
 on database directory D:\Desktop\bootcamp\projects\deepdivegallery-service\deepdivegallery_db with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@368239c8 
 Loaded from file:/C:/Users/russe/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Amazon.com Inc.
