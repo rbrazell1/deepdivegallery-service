@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +16,14 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
 @Entity
+@Table(
+    name = "user_profile",
+    indexes = {
+        @Index(columnList = "created"),
+        @Index(columnList = "updated"),
+        @Index(columnList = "connected")
+    }
+)
 public class User {
 
   @NonNull
