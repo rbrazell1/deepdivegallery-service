@@ -13,7 +13,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.lang.NonNull;
 
 @Entity
@@ -52,6 +51,8 @@ public class User {
   @NonNull
   @Column(nullable = false, updatable = false, unique = true)
   private String displayName;
+
+  // GETTERS AND SETTERS
 
   @NonNull
   public UUID getId() {

@@ -1,6 +1,5 @@
 package edu.cnm.deepdive.deepdivegalleryservice.configuration;
 
-import edu.cnm.deepdive.deepdivegalleryservice.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
