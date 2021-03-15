@@ -67,7 +67,6 @@ public class Gallery {
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "gallery", cascade = {
       CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-  @JoinColumn(name = "image_id")
   @OrderBy("title ASC")
   private List<Image> images = new LinkedList<>();
 
