@@ -31,6 +31,18 @@ import org.springframework.lang.NonNull;
 )
 public class User {
 
+  @JsonIgnore
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "contributor", cascade = CascadeType.ALL)
+  @OrderBy("created DESC")
+  private final List<Image> images = new LinkedList<>();
+
+  @JsonIgnore
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "contributor", cascade = CascadeType.ALL)
+  @OrderBy("created DESC")
+  private final List<Gallery> galleries = new LinkedList<>();
+
   @NonNull
   @Id
   @GeneratedValue(generator = "uuid2")
@@ -58,18 +70,7 @@ public class User {
   @Column(nullable = false, updatable = false, unique = true)
   private String displayName;
 
-  @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "contributor", cascade = CascadeType.ALL)
-  @OrderBy("created DESC")
-  private final List<Image> images = new LinkedList<>();
-
-  @NonNull
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "contributor", cascade = CascadeType.ALL)
-  @OrderBy("created DESC")
-  private final List<Gallery> galleries = new LinkedList<>();
-
   // GETTERS AND SETTERS
-
 
   @NonNull
   public UUID getId() {
@@ -86,13 +87,13 @@ public class User {
     return connected;
   }
 
+  public void setConnected(@NonNull Date connected) {
+    this.connected = connected;
+  }
+
   @NonNull
   public List<Gallery> getGalleries() {
     return galleries;
-  }
-
-  public void setConnected(@NonNull Date connected) {
-    this.connected = connected;
   }
 
   @NonNull

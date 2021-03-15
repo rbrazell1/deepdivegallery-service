@@ -93,6 +93,10 @@ public class Gallery {
     return contributor;
   }
 
+  public void setContributor(@NonNull User contributor) {
+    this.contributor = contributor;
+  }
+
   public List<Image> getImages() {
     return images;
   }
