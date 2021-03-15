@@ -2,12 +2,18 @@ package edu.cnm.deepdive.deepdivegalleryservice.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,7 +58,18 @@ public class User {
   @Column(nullable = false, updatable = false, unique = true)
   private String displayName;
 
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "contributor", cascade = CascadeType.ALL)
+  @OrderBy("created DESC")
+  private final List<Image> images = new LinkedList<>();
+
+  @NonNull
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "contributor", cascade = CascadeType.ALL)
+  @OrderBy("created DESC")
+  private final List<Gallery> galleries = new LinkedList<>();
+
   // GETTERS AND SETTERS
+
 
   @NonNull
   public UUID getId() {
@@ -69,6 +86,11 @@ public class User {
     return connected;
   }
 
+  @NonNull
+  public List<Gallery> getGalleries() {
+    return galleries;
+  }
+
   public void setConnected(@NonNull Date connected) {
     this.connected = connected;
   }
@@ -80,6 +102,11 @@ public class User {
 
   public void setOauthKey(@NonNull String oauthKey) {
     this.oauthKey = oauthKey;
+  }
+
+  @NonNull
+  public List<Image> getImages() {
+    return images;
   }
 
   @NonNull
