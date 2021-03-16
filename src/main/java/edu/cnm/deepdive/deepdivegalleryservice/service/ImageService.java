@@ -57,7 +57,7 @@ public class ImageService {
     image.setDescription(description);
     image.setContributor(contributor);
     image.setName((originalFilename) != null ? originalFilename : UNTITLED_FILENAME);
-    image.setContent_type((contentType != null)
+    image.setContentType((contentType != null)
         ? contentType
         : MediaType.APPLICATION_OCTET_STREAM_VALUE);
     image.setKey(key);
