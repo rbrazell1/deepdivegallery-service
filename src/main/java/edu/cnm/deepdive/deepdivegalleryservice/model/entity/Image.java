@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.deepdivegalleryservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -49,8 +50,6 @@ public class Image {
   @Column(nullable = false)
   private Date updated;
 
-  @NonNull
-  @Column(nullable = false)
   private String title;
 
   private String description;
@@ -58,6 +57,11 @@ public class Image {
   @NonNull
   @Column(nullable = false, updatable = false)
   private String name;
+
+  @JsonIgnore
+  @NonNull
+  @Column(nullable = false, updatable = false)
+  private String key;
 
   @NonNull
   @Column(nullable = false, updatable = false)
@@ -90,8 +94,12 @@ public class Image {
   }
 
   @NonNull
-  public User getContributor() {
-    return contributor;
+  public User getContributor(User contributor) {
+    return this.contributor;
+  }
+
+  public void setContributor(@NonNull User contributor) {
+    this.contributor = contributor;
   }
 
   @NonNull
@@ -99,7 +107,7 @@ public class Image {
     return title;
   }
 
-  public void setTitle(@NonNull String title) {
+  public void setTitle(String title) {
     this.title = title;
   }
 
@@ -122,6 +130,15 @@ public class Image {
 
   public void setName(@NonNull String name) {
     this.name = name;
+  }
+
+  @NonNull
+  public String getKey() {
+    return key;
+  }
+
+  public void setKey(@NonNull String key) {
+    this.key = key;
   }
 
   @NonNull
