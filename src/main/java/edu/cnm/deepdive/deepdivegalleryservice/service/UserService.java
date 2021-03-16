@@ -6,6 +6,8 @@ import edu.cnm.deepdive.deepdivegalleryservice.model.entity.User;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Optional;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -37,6 +39,11 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
           user.setConnected(new Date());
           return repository.save(user);
         });
+  }
+
+  public Optional<User> get(UUID id) {
+    return repository.findById(id);
+
   }
 
   @Override

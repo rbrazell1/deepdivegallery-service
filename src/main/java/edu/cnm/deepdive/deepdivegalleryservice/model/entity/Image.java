@@ -133,6 +133,4 @@ public class Image {
     this.content_type = content_type;
   }
 
-  //  @
-//  private Gallery creator;
 }
