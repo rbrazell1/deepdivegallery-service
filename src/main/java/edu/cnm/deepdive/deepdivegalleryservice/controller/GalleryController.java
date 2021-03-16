@@ -6,6 +6,7 @@ import edu.cnm.deepdive.deepdivegalleryservice.service.GalleryService;
 import java.util.UUID;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,14 +28,14 @@ public class GalleryController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public Gallery post(@RequestBody Gallery gallery, Authentication auth) {
-    return galleryService.newGallery(gallery, (User) auth.getPrincipal());
+  public ResponseEntity<Gallery> post(@RequestBody Gallery gallery, Authentication auth) {
+    gallery = galleryService.newGallery(gallery, (User) auth.getPrincipal());
+    return ResponseEntity.created(gallery.getHref()).body(gallery);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Gallery> getAll(Authentication auth) {
     return galleryService.getAll();
-
   }
 
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,7 +43,6 @@ public class GalleryController {
     return galleryService
         .get(id)
         .orElseThrow();
-
   }
 
 
