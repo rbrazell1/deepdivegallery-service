@@ -42,7 +42,8 @@ public class Image {
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(name = "image_id", nullable = false, updatable = false, columnDefinition = "CHAR(16) FOR BIT DATA")
+  @Column(name = "image_id", nullable = false, updatable = false,
+      columnDefinition = "CHAR(16) FOR BIT DATA")
   private UUID id;
 
 
@@ -68,7 +69,7 @@ public class Image {
 
   @JsonIgnore
   @NonNull
-  @Column(nullable = false, updatable = false)
+  @Column(name = "resourceKey", nullable = false, updatable = false)
   private String key;
 
   @NonNull

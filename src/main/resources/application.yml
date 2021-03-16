@@ -45,8 +45,8 @@ upload:
     - image/tiff
   filename:
     format: "%1$s-%2$d.%3$s"
-    randomizer-limit: 100000
-    timestatmp:
+    randomizer-limit: 1000000
+    timestamp:
       format: yyyyMMddHHmmssSSS
       time-zone: UTC
 

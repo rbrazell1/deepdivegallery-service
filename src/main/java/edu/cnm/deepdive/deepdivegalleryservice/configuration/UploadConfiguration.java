@@ -79,7 +79,7 @@ public class UploadConfiguration {
 
     private String format = "%1$s-%2$d.%3$s";
     private int randomizerLimit = 1_000_000;
-    private TimestampProperties timestampProperties;
+    private TimestampProperties timestamp;
 
 
     public String getFormat() {
@@ -98,12 +98,12 @@ public class UploadConfiguration {
       this.randomizerLimit = randomizerLimit;
     }
 
-    public TimestampProperties getTimestampProperties() {
-      return timestampProperties;
+    public TimestampProperties getTimestamp() {
+      return timestamp;
     }
 
-    public void setTimestampProperties(TimestampProperties timestampProperties) {
-      this.timestampProperties = timestampProperties;
+    public void setTimestamp(TimestampProperties timestamp) {
+      this.timestamp = timestamp;
     }
   }
 
