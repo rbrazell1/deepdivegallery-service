@@ -26,10 +26,19 @@ public class UploadConfiguration {
   );
   private FilenameProperties filename;
 
+
+  /*
+   *Returns a flag indicating whether the upload directory should be interpreted relative to the
+   * application home directory.
+   */
   public boolean isApplicationHome() {
     return applicationHome;
   }
 
+  /*
+   *Specifies whether the upload directory should be interpreted relative to the application home
+   * directory.
+   */
   public void setApplicationHome(boolean applicationHome) {
     this.applicationHome = applicationHome;
   }
