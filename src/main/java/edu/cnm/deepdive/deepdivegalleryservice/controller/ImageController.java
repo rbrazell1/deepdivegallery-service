@@ -1,8 +1,10 @@
 package edu.cnm.deepdive.deepdivegalleryservice.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import edu.cnm.deepdive.deepdivegalleryservice.model.entity.Image;
 import edu.cnm.deepdive.deepdivegalleryservice.model.entity.User;
 import edu.cnm.deepdive.deepdivegalleryservice.service.ImageService;
+import edu.cnm.deepdive.deepdivegalleryservice.view.ImageViews;
 import java.io.IOException;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,7 @@ public class ImageController {
     return ResponseEntity.created(image.getHref()).body(image);
   }
 
+  @JsonView(ImageViews.Hierarchical.class)
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Image get(@PathVariable UUID id, Authentication auth) {
     return imageService

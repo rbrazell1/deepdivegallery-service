@@ -1,9 +1,11 @@
 package edu.cnm.deepdive.deepdivegalleryservice.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import edu.cnm.deepdive.deepdivegalleryservice.model.entity.Gallery;
 import edu.cnm.deepdive.deepdivegalleryservice.model.entity.User;
 import edu.cnm.deepdive.deepdivegalleryservice.service.GalleryService;
 import edu.cnm.deepdive.deepdivegalleryservice.service.ImageService;
+import edu.cnm.deepdive.deepdivegalleryservice.view.GalleryViews;
 import java.util.UUID;
 import org.springframework.hateoas.server.ExposesResourceFor;
 import org.springframework.http.MediaType;
@@ -33,17 +35,20 @@ public class GalleryController {
     this.imageService = imageService;
   }
 
+  @JsonView(GalleryViews.Hierarchical.class)
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Gallery> post(@RequestBody Gallery gallery, Authentication auth) {
     gallery = galleryService.newGallery(gallery, (User) auth.getPrincipal());
     return ResponseEntity.created(gallery.getHref()).body(gallery);
   }
 
+  @JsonView(GalleryViews.Flat.class)
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Gallery> getAll(Authentication auth) {
     return galleryService.getAll();
   }
 
+  @JsonView(GalleryViews.Hierarchical.class)
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Gallery get(@PathVariable UUID id, Authentication auth) {
     return galleryService

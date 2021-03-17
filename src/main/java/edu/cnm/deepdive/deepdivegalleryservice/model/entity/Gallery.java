@@ -1,5 +1,8 @@
 package edu.cnm.deepdive.deepdivegalleryservice.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import edu.cnm.deepdive.deepdivegalleryservice.view.GalleryViews;
+import edu.cnm.deepdive.deepdivegalleryservice.view.ImageViews;
 import java.net.URI;
 import java.util.Date;
 import java.util.LinkedList;
@@ -36,6 +39,7 @@ import org.springframework.stereotype.Component;
     }
 )
 @Component
+@JsonView({GalleryViews.Flat.class, ImageViews.Hierarchical.class})
 public class Gallery {
 
 
@@ -73,11 +77,13 @@ public class Gallery {
   @NonNull
   @ManyToOne(fetch = FetchType.EAGER, optional = false)
   @JoinColumn(name = "contributor_id", nullable = false, updatable = false)
+  @JsonView({GalleryViews.Hierarchical.class})
   private User contributor;
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "gallery", cascade = {
       CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @OrderBy("title ASC")
+  @JsonView(GalleryViews.Hierarchical.class)
   private List<Image> images = new LinkedList<>();
 
 // GETTERS AND SETTERS
