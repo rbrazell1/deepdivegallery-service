@@ -5,6 +5,7 @@ import edu.cnm.deepdive.deepdivegalleryservice.model.entity.Gallery;
 import edu.cnm.deepdive.deepdivegalleryservice.model.entity.User;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,11 @@ public class GalleryService {
     gallery.setContributor(contributor);
     return galleryRepository.save(gallery);
   }
+
+  public Gallery save(@NonNull Gallery gallery) {
+    return galleryRepository.save(gallery);
+  }
+
 
   public Optional<Gallery> get(UUID id) {
     return galleryRepository.findById(id);

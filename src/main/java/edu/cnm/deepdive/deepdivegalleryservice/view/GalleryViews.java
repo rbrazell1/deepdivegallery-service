@@ -1,0 +1,5 @@
+package edu.cnm.deepdive.deepdivegalleryservice.view;
+
+public class GalleryViews {
+
+}

@@ -128,6 +128,10 @@ public class Image {
     this.description = description;
   }
 
+  public void setGallery(Gallery gallery) {
+    this.gallery = gallery;
+  }
+
   public Gallery getGallery() {
     return gallery;
   }
@@ -158,6 +162,8 @@ public class Image {
   public void setContentType(@NonNull String content_type) {
     this.contentType = content_type;
   }
+
+  // Link methods
 
   public URI getHref() {
     //noinspection ConstantConditions
