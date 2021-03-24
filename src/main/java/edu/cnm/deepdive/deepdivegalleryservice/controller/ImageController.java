@@ -74,4 +74,9 @@ public class ImageController {
         .orElseThrow();
   }
 
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+  public Iterable<Image> list(Authentication auth) {
+    return imageService.list();
+  }
+
 }

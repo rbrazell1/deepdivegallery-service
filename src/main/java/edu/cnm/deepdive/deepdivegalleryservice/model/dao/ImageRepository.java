@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ImageRepository extends JpaRepository<Image, UUID> {
 
-  // TODO add search methods
+  Iterable<Image> findAllByOrderByCreatedDesc();
 
 }
