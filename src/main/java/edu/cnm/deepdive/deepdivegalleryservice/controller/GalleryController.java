@@ -57,7 +57,8 @@ public class GalleryController {
   }
 
   @PutMapping(value = "/{galleryId}/images/{imageId}",
-      consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+      consumes = MediaType.APPLICATION_JSON_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public boolean setImageGallery(@PathVariable UUID galleryId, @PathVariable UUID imageId,
       @RequestBody boolean imageInGallery, Authentication auth) {
     return galleryService
@@ -79,6 +80,4 @@ public class GalleryController {
         .map((gallery) -> imageInGallery)
         .orElseThrow();
   }
-
-
 }

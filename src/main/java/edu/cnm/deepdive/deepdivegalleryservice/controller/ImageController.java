@@ -36,21 +36,18 @@ public class ImageController {
   }
 
   @PostMapping(
-      consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+      consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
+      produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Image> post(@RequestParam MultipartFile file,
       @RequestParam(required = false) String title,
       @RequestParam(required = false) String description,
       Authentication auth) throws IOException, HttpMediaTypeException {
-    Image image = imageService.store(file, title, description, (User) auth.getPrincipal());
+    Image image = imageService.store(
+        file,
+        title,
+        description,
+        (User) auth.getPrincipal());
     return ResponseEntity.created(image.getHref()).body(image);
-  }
-
-  @JsonView(ImageViews.Hierarchical.class)
-  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Image get(@PathVariable UUID id, Authentication auth) {
-    return imageService
-        .get(id)
-        .orElseThrow();
   }
 
   @GetMapping("/{id}/content")
@@ -71,6 +68,14 @@ public class ImageController {
             throw new RuntimeException(e); // FIXME
           }
         })
+        .orElseThrow();
+  }
+
+  @JsonView(ImageViews.Hierarchical.class)
+  @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public Image get(@PathVariable UUID id, Authentication auth) {
+    return imageService
+        .get(id)
         .orElseThrow();
   }
 
