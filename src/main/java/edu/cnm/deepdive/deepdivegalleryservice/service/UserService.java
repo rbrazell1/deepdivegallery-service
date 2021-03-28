@@ -43,7 +43,6 @@ public class UserService implements Converter<Jwt, UsernamePasswordAuthenticatio
 
   public Optional<User> get(UUID id) {
     return repository.findById(id);
-
   }
 
   @Override

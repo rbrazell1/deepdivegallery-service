@@ -23,9 +23,7 @@ public class ImageService {
   private final StorageService storageService;
 
   @Autowired
-  public ImageService(
-      ImageRepository imageRepository,
-      StorageService storageService) {
+  public ImageService(ImageRepository imageRepository, StorageService storageService) {
     this.imageRepository = imageRepository;
     this.storageService = storageService;
   }
