@@ -1,8 +1,10 @@
 package edu.cnm.deepdive.deepdivegalleryservice.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import edu.cnm.deepdive.deepdivegalleryservice.model.entity.Gallery;
 import edu.cnm.deepdive.deepdivegalleryservice.model.entity.Image;
 import edu.cnm.deepdive.deepdivegalleryservice.model.entity.User;
+import edu.cnm.deepdive.deepdivegalleryservice.service.GalleryService;
 import edu.cnm.deepdive.deepdivegalleryservice.service.ImageService;
 import edu.cnm.deepdive.deepdivegalleryservice.view.ImageViews;
 import java.io.IOException;
@@ -29,25 +31,33 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageController {
 
   private final ImageService imageService;
+  private final GalleryService galleryService;
 
   @Autowired
-  public ImageController(ImageService imageService) {
+  public ImageController(ImageService imageService, GalleryService galleryService) {
     this.imageService = imageService;
+    this.galleryService = galleryService;
   }
 
   @PostMapping(
+      value = "/{galleryId}",
       consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Image> post(@RequestParam MultipartFile file,
+  public ResponseEntity<Image> post(
+      @PathVariable(required = false) UUID galleryId,
+      @RequestParam MultipartFile file,
       @RequestParam(required = false) String title,
       @RequestParam(required = false) String description,
       Authentication auth) throws IOException, HttpMediaTypeException {
-    Image image = imageService.store(
-        file,
-        title,
-        description,
-        (User) auth.getPrincipal());
-    return ResponseEntity.created(image.getHref()).body(image);
+    return galleryService
+        .get(galleryId)
+        .map((gallery) ->
+            securePost(file,
+                (User) auth.getPrincipal(),
+                gallery,
+                title,
+                description))
+        .orElseThrow(ImageNotFoundException::new);
   }
 
   @GetMapping("/{id}/content")
@@ -83,6 +93,26 @@ public class ImageController {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Iterable<Image> list(Authentication auth) {
     return imageService.list();
+  }
+
+  private ResponseEntity<Image> securePost(
+      MultipartFile file,
+      User user,
+      Gallery gallery,
+      String title, String description) {
+    try {
+      Image image = imageService.store(
+          file,
+          title,
+          description,
+          user,
+          gallery);
+      return ResponseEntity.created(image.getHref()).body(image);
+    } catch (IOException e) {
+      throw new StorageException(e);
+    } catch (HttpMediaTypeException e) {
+      throw new MimeTypeNotAllowedException();
+    }
   }
 
 }

@@ -29,8 +29,7 @@ import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
-public class LocalFilesystemStorageService implements
-    StorageService {
+public class LocalFilesystemStorageService implements StorageService {
 
   private static final String KEY_PATH_DELIMITER = "/";
   private static final String KEY_PATH_FORMAT = "%s" + KEY_PATH_DELIMITER + "%s";

@@ -1,6 +1,7 @@
 package edu.cnm.deepdive.deepdivegalleryservice.service;
 
 import edu.cnm.deepdive.deepdivegalleryservice.model.dao.ImageRepository;
+import edu.cnm.deepdive.deepdivegalleryservice.model.entity.Gallery;
 import edu.cnm.deepdive.deepdivegalleryservice.model.entity.Image;
 import edu.cnm.deepdive.deepdivegalleryservice.model.entity.User;
 import java.io.IOException;
@@ -49,8 +50,12 @@ public class ImageService {
     return storageService.retrieve(image.getKey());
   }
 
-  public Image store(@NonNull MultipartFile file, String title,
-      String description, @NonNull User contributor) throws IOException, HttpMediaTypeException {
+  public Image store(@NonNull MultipartFile file,
+      String title,
+      String description,
+      @NonNull User contributor,
+      Gallery gallery)
+      throws IOException, HttpMediaTypeException {
     String originalFilename = file.getOriginalFilename();
     String contentType = file.getContentType();
     String key = storageService.store(file);
@@ -63,6 +68,7 @@ public class ImageService {
         ? contentType
         : MediaType.APPLICATION_OCTET_STREAM_VALUE);
     image.setKey(key);
+    image.setGallery(gallery);
     return save(image);
   }
 
