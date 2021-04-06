@@ -80,8 +80,8 @@ public class Gallery {
   @JsonView({GalleryViews.Hierarchical.class})
   private User contributor;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "gallery", cascade = {
-      CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "gallery",
+      cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
   @OrderBy("title ASC")
   @JsonView(GalleryViews.Hierarchical.class)
   private List<Image> images = new LinkedList<>();
