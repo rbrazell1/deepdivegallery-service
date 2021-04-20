@@ -15,7 +15,6 @@ public class GalleryService {
 
   private final GalleryRepository galleryRepository;
 
-
   public GalleryService(
       GalleryRepository galleryRepository) {
     this.galleryRepository = galleryRepository;
@@ -33,7 +32,6 @@ public class GalleryService {
   public Iterable<Gallery> save(@NonNull Iterable<Gallery> galleryIterable) {
     return galleryRepository.saveAll(galleryIterable);
   }
-
 
   public Optional<Gallery> get(UUID id) {
     return galleryRepository.findById(id);

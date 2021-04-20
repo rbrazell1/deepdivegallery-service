@@ -93,7 +93,6 @@
               https://javadoc.io/doc/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/latest/
             </link>
 
-
           </links>
         </configuration>
       </plugin>
