@@ -1,15 +1,8 @@
 spring:
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 10MB
-      max-request-size: 15MB
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: https://accounts.google.com
-          client-id: 840831442772-27hm74kfo4dq6sb0jrtt8r6qatdr4s3b.apps.googleusercontent.com
+
+  profiles:
+    active: service
+
   datasource:
     url: jdbc:derby:deepdivegallery_db;create=true;collation=TERRITORY_BASED:PRIMARY
 
@@ -26,29 +19,6 @@ spring:
 #              action: create
 #              create-target: ddl.sql
 
-server:
-  port: 18181
-  servlet:
-    context-path: /deepdivegallery
-
-
-upload:
-  application-home: true
-  directory: uploads
-  subdirectory-pattern: "^(.{4})(.{2})(.{2}).*$"
-  whitelist:
-    - image/bmp
-    - image/gif
-    - image/jpeg
-    - image/pjpeg
-    - image/png
-    - image/tiff
-  filename:
-    format: "%1$s-%2$d.%3$s"
-    randomizer-limit: 1000000
-    timestamp:
-      format: yyyyMMddHHmmssSSS
-      time-zone: UTC
 
 
 
