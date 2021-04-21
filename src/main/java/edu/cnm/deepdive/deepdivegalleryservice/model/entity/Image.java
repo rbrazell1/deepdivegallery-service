@@ -182,7 +182,6 @@ public class Image {
     Image.entityLinks = entityLinks;
   }
 
-
   @PostConstruct
   private void initHateoas() {
     //noinspection ResultOfMethodCallIgnored

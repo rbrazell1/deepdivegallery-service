@@ -46,7 +46,8 @@ public class GalleryController {
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Gallery> post(@RequestBody Gallery gallery, Authentication auth) {
     gallery = galleryService.newGallery(gallery, (User) auth.getPrincipal());
-    return ResponseEntity.created(gallery.getHref()).body(gallery);
+    return ResponseEntity.created(gallery.getHref())
+                         .body(gallery);
   }
 
   @JsonView(GalleryViews.Flat.class)
@@ -76,10 +77,12 @@ public class GalleryController {
                 .map((image) -> {
                   if (imageInGallery) {
                     image.setGallery(gallery);
-                    gallery.getImages().add(image);
+                    gallery.getImages()
+                           .add(image);
                   } else {
                     image.setGallery(null);
-                    gallery.getImages().remove(image);
+                    gallery.getImages()
+                           .remove(image);
                   }
                   return galleryService.save(gallery);
                 })
@@ -114,7 +117,8 @@ public class GalleryController {
       MultipartFile file,
       User user,
       Gallery gallery,
-      String title, String description) {
+      String title,
+      String description) {
     try {
       Image image = imageService.store(
           file,
@@ -122,7 +126,8 @@ public class GalleryController {
           description,
           user,
           gallery);
-      return ResponseEntity.created(image.getHref()).body(image);
+      return ResponseEntity.created(image.getHref())
+                           .body(image);
     } catch (IOException e) {
       throw new StorageException(e);
     } catch (HttpMediaTypeException e) {
