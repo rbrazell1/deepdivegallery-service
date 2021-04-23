@@ -20,6 +20,7 @@ server:
   port: 18181
   servlet:
     context-path: /deepdivegallery
+  forward-headers-strategy: framework
 
 upload:
   application-home: true
