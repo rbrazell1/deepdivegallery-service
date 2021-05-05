@@ -32,19 +32,19 @@ import org.springframework.web.multipart.MultipartFile;
 public class GalleryController {
 
   private final GalleryService galleryService;
-
   private final ImageService imageService;
 
   public GalleryController(
-      GalleryService galleryService,
-      ImageService imageService) {
+      GalleryService galleryService, ImageService imageService) {
     this.galleryService = galleryService;
     this.imageService = imageService;
   }
 
   @JsonView(GalleryViews.Hierarchical.class)
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Gallery> post(@RequestBody Gallery gallery, Authentication auth) {
+  public ResponseEntity<Gallery> post(
+      @RequestBody Gallery gallery,
+      Authentication auth) {
     gallery = galleryService.newGallery(gallery, (User) auth.getPrincipal());
     return ResponseEntity.created(gallery.getHref())
                          .body(gallery);
@@ -58,7 +58,8 @@ public class GalleryController {
 
   @JsonView(GalleryViews.Hierarchical.class)
   @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public Gallery get(@PathVariable UUID id, Authentication auth) {
+  public Gallery get(
+      @PathVariable UUID id, Authentication auth) {
     return galleryService
         .get(id)
         .orElseThrow();
@@ -67,7 +68,9 @@ public class GalleryController {
   @PutMapping(value = "/{galleryId}/images/{imageId}",
       consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public boolean setImageGallery(@PathVariable UUID galleryId, @PathVariable UUID imageId,
+  public boolean setImageGallery(
+      @PathVariable UUID galleryId,
+      @PathVariable UUID imageId,
       @RequestBody boolean imageInGallery, Authentication auth) {
     return galleryService
         .get(galleryId)
